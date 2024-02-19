@@ -17,6 +17,7 @@ const int finDeCarrera = 53;
 //Peso
 const int LOADCELL_DOUT_PIN = 51;
 const int LOADCELL_SCK_PIN = 49;
+HX711 balanza(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
 
 //MQ4
 const int MQ4_AOPin=0;
@@ -98,6 +99,10 @@ int AO_Out8;
 //temp
 float temp;
 
+//Peso
+float peso;
+int promMedicion;
+int pesoConocido;
 
 //Servos
 int posCaja1 = 0;
@@ -148,13 +153,19 @@ void sensoresEVA() {
   Serial.print(peso, 1);
   Serial.println(" g");
   delay(100);
+
+    Serial.print("Methane Conentration: ");
+  Serial.println(AO_Out4); // Print out the methane value - the analog output - beteewn 0 and 1023
+  Serial.print("Monoxide Conentration: ");
+  Serial.println(AO_Out7);
+  Serial.print("Hydrogen Conentration: ");
+  Serial.println(AO_Out8);
+  //delay(1000);
 }
 
 void calibrarPeso() {
-  int promMedicion = 1;
-  int promMedicion = 1;
-  int Escala = PromMedicion/Peso_conocido; // Relación entre el promedio de las mediciones analogas con el peso conocido en gramos 
-  balanza.set_scale(Escala);
+  int escala = promMedicion/pesoConocido; // Relación entre el promedio de las mediciones analogas con el peso conocido en gramos 
+  balanza.set_scale(escala);
 }
 
 void sensorPeso() {
@@ -164,17 +175,8 @@ void sensorPeso() {
   if(peso*0.9882 - 0.1129);
   if(peso<0.5) peso = 0;
   delay(1000);
-  Serial.println(pesoo);
+  Serial.println(peso);
 
-}
-
-  Serial.print("Methane Conentration: ");
-  Serial.println(AO_Out4); // Print out the methane value - the analog output - beteewn 0 and 1023
-  Serial.print("Monoxide Conentration: ");
-  Serial.println(AO_Out7);
-  Serial.print("Hydrogen Conentration: ");
-  Serial.println(AO_Out8);
-  //delay(1000);
 }
 
 void activarServo (int numServo, int posDestino) {
@@ -281,11 +283,13 @@ void desplazarNema(int dirPin, int stepPin, int dir, int steps, int speed) {
   }
 }
 
-void devolverNema() {
+void devolverNema17() {
   //Default: NEMA, 1, 2, 1
   //dir: 1 clockwise, 0 anticlockwise
   //speed: 0 a 3, NO MAS
   //Steps: Determinar largo TODO
+
+  int dir = 1;
   
   digitalWrite(dirPin17, dir);
 
@@ -381,12 +385,8 @@ void setup() {
   
 
 }
-void loop() {
 
-  //sensoresRamses();
-  //sensoresEVA();
-
-  ///Prueba Servo
+void coreografiaNoCoordinada() {
   activarServo(1, 180);
   delay(500);
   activarServo(1, 0);
@@ -448,5 +448,16 @@ void loop() {
 
   //TODO Balancear excavacion y nivelacion, revisar que sentido de nema va al fin de carrera, revisar Sensor de peso
   delay(1000);
+}
+
+void loop() {
+
+  coreografiaNoCoordinada();
+
+  //sensoresRamses();
+  //sensoresEVA();
+
+  ///Prueba Servo
+  
 
 }
