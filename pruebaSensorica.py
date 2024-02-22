@@ -8,7 +8,7 @@ if __name__ == '__main__':
     while True:
         number = ser.read()
         print(number)
-        if number != b'0':
+        if number != (b'0' or b'') :
             led_number = random.randint(1,4)
             print("Button has been pressed.")
             print("Sending number " + str(led_number) + " to Arduino.")
