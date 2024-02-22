@@ -1,20 +1,14 @@
 #!/usr/bin/env python3
 import serial
-import time
-
+import random
 if __name__ == '__main__':
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
-
     while True:
-        if ser.in_waiting > 0:
-            line = ser.readline().decode('utf-8').rstrip()
-            print(line)
-        else:
-            ser.write(b"Hello from Raspberry Pi!\n")
-            line = ser.readline().decode('utf-8').rstrip()
-            print(line)
-            time.sleep(1)
-
-
-        
+        number = ser.read()
+        if number != b'0':
+            if int.from_bytes(number, byteorder='big') == 18:
+                led_number = random.randint(1,4)
+                print("Button has been pressed.")
+                print("Sending number " + str(led_number) + " to Arduino.")
+                ser.write(str(led_number).encode('utf-8'))
