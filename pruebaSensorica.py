@@ -4,8 +4,10 @@ import random
 if __name__ == '__main__':
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
+    
     while True:
         number = ser.read()
+        print(number)
         if number != b'0':
             if int.from_bytes(number, byteorder='big') == 18:
                 led_number = random.randint(1,4)
