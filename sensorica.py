@@ -9,7 +9,7 @@ import time
 ## Coreografias
 
 if __name__ == '__main__':
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+    ser = serial.Serial('/dev/ttyUSB0', 56000, timeout=1)
     ser.reset_input_buffer()
 
     while True:
@@ -21,4 +21,3 @@ if __name__ == '__main__':
             line = ser.readline().decode('utf-8').rstrip()
             print(line)
             time.sleep(1000)
-            
