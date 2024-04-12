@@ -17,7 +17,7 @@ if __name__ == '__main__':
             line = ser.readline().decode('utf-8').rstrip()
             print(line)
         else:
-            ser.write(b"Hello from Raspberry Pi!\n")
+            ser.write(str("Hello from Raspberry Pi!\n").encode('utf-8'))
             line = ser.readline().decode('utf-8').rstrip()
             print(line)
             time.sleep(1000)
