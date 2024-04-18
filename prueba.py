@@ -1,15 +1,15 @@
-import serial 
+#!/usr/bin/env python3
+import serial
+import time
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyUSB0', 57600, timeout=1)
+    ser.reset_input_buffer()
+    while True:
+        userInput = input("Enter data to send to Arduino: ")
+        ser.write(userInput.encode() + b"\n")
+        line = ser.readline().decode('utf-8').rstrip()
+        print(line)
+        time.sleep(1)
 
-if __name__ == '__main__': 
 
-  ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
 
-  ser.reset_input_buffer() 
-
-  while True: 
-
-    if ser.in_waiting > 0: 
-
-      line = ser.readline().decode('utf-8').rstrip() 
-
-      print(line) 
