@@ -2,7 +2,7 @@ import serial
 import time
 
 arduino = serial.Serial('/dev/ttyACM0', baudrate=9600)
-arduino.open()
+
 texto=''
 
 while True:
