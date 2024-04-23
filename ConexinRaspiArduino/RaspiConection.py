@@ -7,7 +7,7 @@ texto=''
 
 while True:
     comando = input("Introduzca un comando: ")
-    ser.write(comando)
+    ser.write(str.encode(comando))
     line = ser.readline().decode('utf-8').rstrip()
     print(line)
     time.sleep(1)
