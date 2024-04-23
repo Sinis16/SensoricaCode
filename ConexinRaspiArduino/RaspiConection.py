@@ -7,10 +7,10 @@ texto=''
 
 while True:
     comando = input("Introduzca un comando: ")
-    arduino.write(str.encode(comando))
+    arduino.write(comando)
     time.sleep(0.1)
     while arduino.inWaiting()>0:
-        texto += arduino.read(1)
+        texto += str.encode(arduino.read(1))
     print(texto)
     texto = ''
 
