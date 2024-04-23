@@ -1,17 +1,19 @@
 import serial
 import time
 
-arduino = serial.Serial('/dev/ttyACM0', baudrate=9600)
+ser = serial.Serial('/dev/ttyACM0', baudrate=9600)
 
 texto=''
 
 while True:
     comando = input("Introduzca un comando: ")
-    arduino.write(comando)
-    time.sleep(0.1)
-    while arduino.inWaiting()>0:
-        texto += str.encode(arduino.read(1))
+    ser.write(comando)
+    line = ser.readline().decode('utf-8').rstrip()
+    print(line)
+    time.sleep(1)
+    """ while arduino.inWaiting()>0:
+        texto += arduino.read(1)
     print(texto)
-    texto = ''
+    texto = '' """
 
 arduino.close()
