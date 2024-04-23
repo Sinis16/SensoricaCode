@@ -1,7 +1,7 @@
 import serial
 import time
 
-ser = serial.Serial('/dev/ttyACM3', baudrate=9600)
+ser = serial.Serial('/dev/ttyACM4', baudrate=9600)
 
 texto=''
 
