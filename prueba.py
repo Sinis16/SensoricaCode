@@ -2,7 +2,7 @@
 import serial
 import time
 if __name__ == '__main__':
-    ser = serial.Serial('/dev/ttyUSB0', 57600, timeout=1)
+    ser = serial.Serial('/dev/ttyAMA0', 57600, timeout=1)
     ser.reset_input_buffer()
     while True:
         userInput = input("Enter data to send to Arduino: ")
